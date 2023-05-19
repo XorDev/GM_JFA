@@ -22,6 +22,8 @@ vec4 JFA(sampler2D t, vec2 uv)
 	bool first = u_first>0.5;
 	//Initialize output
     vec4 encode = vec4(0.0);
+	//Initialize the closest distance (1.0 is outside the range)
+	float dist = 1.0;
     
     //Loop through neighbor cells
     for(int x = -1; x <= 1; x++)
@@ -43,17 +45,18 @@ vec4 JFA(sampler2D t, vec2 uv)
             return samp;
         }
         //Encode the offset (-0.5 to +0.5)
-    	vec2 encode_off = (samp.rg - CENTER)*vec2(samp.a<1.0) + off / RANGE;
+    	vec2 tex_off = (samp.rg - CENTER) * vec2(samp.a<1.0) + off / RANGE;
     	//Compute offset distance (inverted)
-    	float dist = 1.0 - length(encode_off)*2.0; 
+    	float tex_dist = length(tex_off); 
     	
     	//Check for the closest
-    	if (dist > encode.a && (!first || samp.a>=1.0))
+    	if (dist > tex_dist && (!first || samp.a>=1.0))
     	{
 			//Store texel offset
-    		encode.rg = encode_off + CENTER;
+    		encode.rg = tex_off + CENTER;
 			//Store the closest distance
-    		encode.a = dist;
+			dist = tex_dist;
+			encode.a = 1.0 - tex_dist*3.0;
     	}
     }
     return encode;
