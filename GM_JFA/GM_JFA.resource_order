@@ -1,0 +1,10 @@
+{
+  "FolderOrderSettings": [
+    {"name":"Example","order":1,"path":"folders/Example.yy",},
+  ],
+  "ResourceOrderSettings": [
+    {"name":"shd_outline","order":3,"path":"shaders/shd_outline/shd_outline.yy",},
+    {"name":"obj_controller","order":1,"path":"objects/obj_controller/obj_controller.yy",},
+    {"name":"rm_example","order":2,"path":"rooms/rm_example/rm_example.yy",},
+  ],
+}
